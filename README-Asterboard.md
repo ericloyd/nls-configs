@@ -31,11 +31,14 @@ cp asterisk /usr/local/nagioslogserver/logstash/patterns
         Add a filter called "Asterisk" with the following content:
 
         if [program] == 'asterisk' {
-          grok {
-            match => ['message', '%{ASTLOG}']
+          mutate {
+            replace => [ 'type', 'asterisk' ]
+          }
+        grok {
+          match => ['message', '%{ASTLOG}']
           }
         }
-
+        
         Save and Apply your new global configuration
 
 3) Install the dashboard itself by going to the "Dashboard" screen
